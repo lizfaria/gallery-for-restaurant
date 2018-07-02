@@ -51,7 +51,6 @@ img {
     opacity: 1;
     transition: 0.3s all ease-in;
     image-orientation: from-image;
-  
     /* transform:rotate(90deg); */
 }
 
