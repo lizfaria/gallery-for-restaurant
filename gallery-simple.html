@@ -1,0 +1,62 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>gallery</title>
+    <link rel="stylesheet" href="./gallery.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <img src="./assets/img_2805.jpg" alt="bar with stools">
+    
+        <img src="./assets/img_2801.jpg" alt="set table">
+    
+        <img src="./assets/img_2810.jpg" alt="set table with candles">
+    
+        <img src="./assets/img_2887.jpg" alt="cocktail sitting atop menu">
+    
+        <img src="./assets/img_2891.jpg" alt="cereal killer engraved spoon">
+    
+        <img src="./assets/img_2893.jpg" alt="aperitivo bottles">
+    
+        <img src="./assets/img_2896.jpg" alt="bar with customers sitting on stools">
+    
+        <img src="./assets/img_2899.jpg" alt="cocktail cart">
+    
+        <img src="./assets/img_2900.jpg" alt="aet table with candles beside table">
+    
+        <img src="./assets/toronto-restaurants-giulietta-italian-little-italy-rob-rossi.jpg" alt="Chef Rob Rossi in kitchen">
+    </div>
+
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script>
+    $(document).ready(function () {
+        $('.wrap img').wrap('<span class="gallery-image">'); 
+        $('.wrap span').wrap('<div class="container">');
+        $('img').addClass('loaded');
+        
+        if ($(window).width() >= 1025) {
+            const rotateImage = document.querySelectorAll('img');
+            images = [];
+            images = Array.from(rotateImage);
+
+            function randDegree() {
+                var rand = Math.floor(Math.random() * 21) - 10;
+                return rand;
+            };
+
+            images.forEach(image => {
+                $(image)
+                .css('transform', 'translateY(' + (randDegree() * 10) + 'px) rotate(' + randDegree() + 'deg)')
+            });
+        }
+    });
+</script>
+
+</body>
+</html> -->

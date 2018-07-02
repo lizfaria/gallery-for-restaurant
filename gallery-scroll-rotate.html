@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>gallery-test</title>
+    <link rel="stylesheet" href="./gallery.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <img data-src="./assets/img_2805.jpg" alt="bar with stools">
+ 
+        <img data-src="./assets/img_2801.jpg" alt="set table">
+     
+        <img data-src="./assets/img_2810.jpg" alt="set table with candles">
+    
+        <img data-src="./assets/img_2887.jpg" alt="cocktail sitting atop menu">
+
+        <img data-src="./assets/img_2891.jpg" alt="cereal killer engraved spoon">
+  
+        <img data-src="./assets/img_2893.jpg" alt="aperitivo bottles">
+
+        <img data-src="./assets/img_2896.jpg" alt="bar with customers sitting on stools">
+   
+        <img data-src="./assets/img_2899.jpg" alt="cocktail cart">
+
+        <img data-src="./assets/img_2900.jpg" alt="aet table with candles beside table">
+
+        <img data-src="./assets/toronto-restaurants-giulietta-italian-little-italy-rob-rossi.jpg" alt="Chef Rob Rossi in kitchen">
+    </div>
+    
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazy/1.7.9/jquery.lazy.plugins.min.js"></script>
+    <script>
+
+        const app = {};
+        // global variables
+        let index = 2;
+        const $img = $('img');
+        $('.wrap img').wrap('<span class="gallery-image">');
+        $('.wrap span').wrap('<div class="container">')
+        const height = $(window).height();
+
+        app.scrollEffect = function() {
+            const controller = new ScrollMagic.Controller({
+                globalSceneOptions: {
+                    triggerHook: 'onLeave'
+                }
+            });
+            const parallax = new ScrollMagic.Controller({
+                globalSceneOptions: {
+                    triggerHook: 'onEnter'
+                }
+            });
+            const rotateImage = document.querySelectorAll('.wrap span');
+            images = [];
+            images = Array.from(rotateImage);
+            images.forEach(image => {
+                app.placeElem(image, parallax);
+            });
+        };
+
+        app.placeElem = function(image, parallax) {
+            if (index % 3 == 0) {
+                startPos = app.rand(0, 0);
+                elemW = app.rand(60, 70);
+                rotationStart = app.rand(-20, 20);
+                rotationEnd = app.rand(-10, 10);
+                ySpeed = (startPos + app.rand(-120, 0)) + '%';
+            } else{
+                startPos = app.rand(0, 0);
+                elemW = app.rand(85, 93);
+                rotationStart = app.rand(-10, 10);
+                rotationEnd = app.rand(-10, 10);
+                ySpeed = (startPos + app.rand(-30, 50)) + '%';
+            }
+            const spaceAround = 100 - elemW;
+            TweenLite.to(image, 0, {
+                width: elemW + "%",
+                y: startPos / 2  + "%",
+                x: app.rand(0, spaceAround) + "%",
+                rotation: rotationStart,
+                force3D: true
+            });
+            // initiates rotation and parallax of images on scroll - try commenting out to see how page looks and functions without it
+            new ScrollMagic.Scene({
+                triggerElement: '.wrap',
+                duration: app.rand(1.5, 3) * height + "px"
+            }).setTween(image, {
+                y: ySpeed,
+                rotation: rotationEnd,
+                force3D: true
+            }).addTo(parallax);
+            // 
+            index++;
+        }
+
+        app.rand = function (min,max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        app.arrayRand = function (myArray) {
+            const rand = myArray[Math.floor(Math.random() * myArray.length)];
+            return rand;
+        }
+        // lazyload library
+        app.lazyLoad = function () {
+            $('img').addClass('lazy');
+            $('.lazy').lazy({
+                effect: 'fadeIn',
+                effectTime: 500,
+                visibleOnly: true
+            });
+        }
+
+        app.events = function () {
+            app.lazyLoad();
+            if ($(window).width() >= 1025) {
+                app.scrollEffect();
+            }  
+            window.addEventListener("load", function () {
+                 $('img').addClass('loaded'); 
+            });
+         
+        }
+
+        app.init = function () {
+            app.events();
+        }
+        $(function () {
+            app.init();
+        });
+    </script>
+    
+</body>
+</html>
