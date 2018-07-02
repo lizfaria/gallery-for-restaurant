@@ -43,8 +43,9 @@ body {
 span {
     display: block;
 }
-
 img {
+    color: transparent;
+    display: block;
     color: transparent;
     max-width: 100%;
     width: 100%;
@@ -52,8 +53,4 @@ img {
     transition: 0.3s all ease-in;
     image-orientation: from-image;
     /* transform:rotate(90deg); */
-}
-
-.loaded {
-  box-shadow:-1px 1px 4px grey;
 }
